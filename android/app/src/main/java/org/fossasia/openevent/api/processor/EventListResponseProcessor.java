@@ -4,6 +4,7 @@ import org.fossasia.openevent.OpenEventApp;
 import org.fossasia.openevent.data.Event;
 import org.fossasia.openevent.data.Version;
 import org.fossasia.openevent.dbutils.DataDownloadManager;
+import org.fossasia.openevent.dbutils.DbContract;
 import org.fossasia.openevent.dbutils.DbSingleton;
 import org.fossasia.openevent.events.CounterEvent;
 import org.fossasia.openevent.events.RetrofitError;
@@ -43,6 +44,8 @@ public class EventListResponseProcessor implements Callback<Event> {
                             queries.add(version.generateSql());
                             queries.add(event_query);
                             Timber.d(event_query);
+                            dbSingleton.clearTable(DbContract.Versions.TABLE_NAME);
+                            dbSingleton.clearTable(DbContract.Event.TABLE_NAME);
                             dbSingleton.insertQueries(queries);
                             DataDownloadManager download = DataDownloadManager.getInstance();
                             download.downloadSpeakers();
