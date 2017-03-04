@@ -31,7 +31,7 @@ public final class APIClient {
                 .connectTimeout(CONNECT_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                 .readTimeout(READ_TIMEOUT_MILLIS, TimeUnit.MILLISECONDS)
                 .addInterceptor(new HttpLoggingInterceptor().
-                        setLevel(HttpLoggingInterceptor.Level.BODY))
+                        setLevel(HttpLoggingInterceptor.Level.BASIC))
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

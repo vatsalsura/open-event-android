@@ -193,9 +193,14 @@ public class MainActivity extends BaseActivity {
         setUpProgressBar();
         setUpCustomTab();
         if (NetworkUtils.haveNetworkConnection(this)) {
+            Timber.d("DO2");
+
             if (NetworkUtils.isActiveInternetPresent()) {
                 //Internet is working
+                Timber.d(sharedPreferences.getBoolean(ConstantStrings.IS_DOWNLOAD_DONE,false)+"");
+
                 if (!sharedPreferences.getBoolean(ConstantStrings.IS_DOWNLOAD_DONE, false)) {
+                    Timber.d("DO");
                     DialogFactory.createDownloadDialog(this, R.string.download_assets, R.string.charges_warning, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
