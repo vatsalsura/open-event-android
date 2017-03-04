@@ -99,6 +99,7 @@ public class DatabaseOperations {
 
     public Session getSessionById(int id, SQLiteDatabase mDb) {
         String selection = DbContract.Sessions.ID + EQUAL + id;
+        Timber.d("ID " + id);
         Cursor cursor = mDb.query(
                 DbContract.Sessions.TABLE_NAME,
                 DbContract.Sessions.FULL_PROJECTION,

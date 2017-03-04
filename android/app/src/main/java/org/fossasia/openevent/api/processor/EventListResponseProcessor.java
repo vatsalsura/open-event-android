@@ -1,5 +1,7 @@
 package org.fossasia.openevent.api.processor;
 
+import android.util.Log;
+
 import org.fossasia.openevent.OpenEventApp;
 import org.fossasia.openevent.data.Event;
 import org.fossasia.openevent.data.Version;
@@ -28,6 +30,7 @@ public class EventListResponseProcessor implements Callback<Event> {
     @Override
     public void onResponse(Call<Event> call, final Response<Event> response) {
         if (response.isSuccessful()) {
+            Log.d(TAG, " resp SUCESS");
             CommonTaskLoop.getInstance().post(new Runnable() {
                 @Override
                 public void run() {
@@ -35,9 +38,14 @@ public class EventListResponseProcessor implements Callback<Event> {
                     DbSingleton dbSingleton = DbSingleton.getInstance();
                     Event event = response.body();
                     String event_query = event.generateSql();
+                    Timber.tag("VERSION A").d(dbSingleton.getVersionIds().getSpeakerVer()+"");
+                    Timber.tag("VERSION Q").d(event.getVersion().getTracksVer()+"");
 
                     Version version = response.body().getVersion();
                     counterRequests = 0;
+                    Version versionlocal = dbSingleton.getVersionIds();
+                    Timber.d(versionlocal.getEventVer() + " " + versionlocal.getSpeakerVer());
+                    Timber.d(version.getSpeakerVer()+"");
 
                         if ((dbSingleton.getVersionIds() == null)) {
                             queries.add(version.generateSql());
